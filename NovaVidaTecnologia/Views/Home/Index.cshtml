@@ -1,0 +1,70 @@
+﻿@model IEnumerable<NovaVidaTecnologia.Models.Professores>
+
+@{
+    ViewData["Title"] = "Lista de Professores";
+
+
+}
+
+<h1>Lista de Professores</h1>
+<br />
+
+<p>
+    <a asp-action="InsertTeacher" class="btn  btn-success"> <i class="fa fa-address-card" aria-hidden="true"></i> Cadastrar Professor</a>
+
+</p>
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show col-6" role="alert">
+        <strong>Professor(a) cadastrado(a) com sucesso!</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    TempData["success"] = null;
+}
+
+
+
+@if (!Model.Any())
+{
+    <p>Não há professores cadastrados!</p>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Nome do Professor
+                </th>
+                <th>
+                    Alunos
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Nome
+                    </td>
+                    <td>
+                        <a asp-controller="Alunos" asp-action="Index" asp-route-id="@item.Id" class="btn btn-primary"><i class="fa fa-users" aria-hidden="true"></i> Visualizar Alunos</a>
+
+
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+
+
+
+
+

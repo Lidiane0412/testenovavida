@@ -1,0 +1,31 @@
+﻿@model IEnumerable<NovaVidaTecnologia.Models.Professores>
+
+@{
+    ViewData["Title"] = "Home Page";
+
+}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <form method="post" action="/FileImport/index/" enctype="multipart/form-data">
+                <input type="hidden" name="teacher_id" value=@ViewBag.IdImport>
+                <div class="form-group col-12">
+                    <label class="col-12">Importar lista de alunos</label>
+                    <input type="file" class="form-control col-6" name="fileImport">
+                    <div class="col-12">
+                        <br />
+                        <button type="submit" class="btn btn-success">Importar Alunos</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+

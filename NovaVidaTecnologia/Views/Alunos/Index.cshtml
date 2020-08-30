@@ -1,0 +1,104 @@
+﻿@model IEnumerable<NovaVidaTecnologia.Models.Alunos>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Lista de Alunos</h1>
+
+<p>
+    <a asp-controller="FileImport" asp-action="Index" class="btn btn-success" asp-route-id="@ViewBag.IdProfessor"> <i class="fa fa-upload" aria-hidden="true"></i> Importar Alunos</a>
+</p>
+
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show col-4" role="alert">
+        <strong>Aluno(s) cadastrado(s) com sucesso!</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    TempData["success"] = null;
+}
+
+@if (TempData["Deletesuccess"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show col-4" role="alert">
+        <strong>Aluno excluído com sucesso!</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    TempData["Deletesuccess"] = null;
+}
+
+@if (TempData["TimeShort"] != null)
+{
+    <div class="alert alert-warning alert-dismissible fade show col-8" role="alert">
+        <strong>Por favor, aguarde 5 minutos para fazer uma nova importação!</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    TempData["TimeShort"] = null;
+}
+
+
+@if (!Model.Any())
+{
+    <p>Não há alunos cadastrados para o professor selecionado!</p>
+}
+else
+{
+
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Nome do Aluno
+                </th>
+                <th>
+                    Valor da Mensalidade
+                </th>
+                <th>
+                    Data de Vencimento
+                </th>
+                <th>
+                    Professor
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Nome
+                    </td>
+                    <td>
+                        @item.PagamentoMensal.ToString("C")
+                    </td>
+                    <td>
+                        @item.DataVencimento.ToString("dd/MM/yyyy")
+                    </td>
+                    <td>
+                        @item.Professores.Nome
+                    </td>
+                    <td>
+                        <a href="@Url.Action("DeleteStudent", "Alunos", new { id = item.Id, ProfessorId = item.Professores.Id })" class="btn btn-danger">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                            Excluir
+                        </a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar</a>
+}
