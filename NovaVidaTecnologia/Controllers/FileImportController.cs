@@ -122,7 +122,7 @@ namespace NovaVidaTecnologia.Controllers
                 dataImport.NomeArquivo = fileImport.FileName;
                 //dataImport.DateImport = DateTime.Now;
                 _context.LogImportacao.Add(dataImport);
-                _context.SaveChanges();
+                _ = _context.SaveChanges();
             }
             else
             { // aqui é quando não pode importar
